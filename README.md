@@ -79,7 +79,7 @@ Flex-Trip/
 │
 ├── app.py
 ├── db.py
-├── database.sql
+├── flex_trip_database.sql
 ├── requirements.txt
 ├── README.md
 └── .gitignore
@@ -151,7 +151,7 @@ Create a MySQL database.
 Import the provided SQL file.
 
 ```sql
-SOURCE database.sql;
+SOURCE flex_trip_database.sql;
 ```
 
 ---
@@ -177,7 +177,6 @@ http://127.0.0.1:5000
 - Follow Users
 - Save Trips
 - Interactive Maps
-- Responsive Mobile UI
 - Trip Editing
 - Email Verification
 
