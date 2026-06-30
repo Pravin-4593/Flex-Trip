@@ -1,253 +1,197 @@
-# Flex Trip 🌍
+# 🌍 Flex Trip
 
-A travel social media web application where users can create trips, share travel memories, upload photos, and interact with other travelers.
-
-Built using Flask and MySQL.
+A full-stack travel social media web application where users can share their travel experiences, create trips with multiple stops, upload gallery photos, interact with other travelers, and discover new travel destinations.
 
 ---
 
-## Live Demo
+## 📸 Screenshots
 
-Add after deployment:
-`https://your-app-name.onrender.com`
-
----
-
-## Screenshots
-
-### Login Page
-
-[Add Screenshot Here]
-
----
+> Add screenshots here after deployment.
 
 ### Feed
-
-[Add Screenshot Here]
-
----
-
-### Profile
-
-[Add Screenshot Here]
-
----
+![Feed](screenshots/feed.png)
 
 ### Trip Details
+![Trip Details](screenshots/trip_details.jpeg)
 
-[Add Screenshot Here]
+### User Profile
+![Profile](screenshots/profile.jpeg)
+
+### Search Users
+![Search](screenshots/search.jpeg)
+
+### Create Trip
+![Create Trip](screenshots/create_trip.jpeg)
 
 ---
 
-### Gallery
+## ✨ Features
 
-[Add Screenshot Here]
+- 🔐 User Authentication (Signup/Login)
+- 👤 Public User Profiles
+- 📝 Create and Publish Trips
+- 📍 Add Multiple Stops to a Trip
+- 🖼 Upload Trip Gallery Photos
+- ❤️ Like Trips
+- 💬 Comment on Trips
+- 🔎 Search Users
+- 📰 Travel Feed
+- 📱 Clean Responsive UI
+- 🔒 Password Hashing
+- 🗃 MySQL Database
 
 ---
 
-## Tech Stack
-
-### Backend
-
-* Flask
-* MySQL
-* mysql-connector-python
+## 🛠 Tech Stack
 
 ### Frontend
 
-* HTML
-* CSS
-* JavaScript
+- HTML5
+- CSS3
+- JavaScript
 
-### Security
+### Backend
 
-* Werkzeug Password Hashing
+- Flask
+- Python
 
----
+### Database
 
-## Features
+- MySQL
 
-### Authentication
+### Other
 
-✔ Signup
-
-✔ Login
-
-✔ Logout
-
----
-
-### Trip Management
-
-✔ Create Trip
-
-✔ Add Trip Stops
-
-✔ Upload Stop Photos
-
-✔ Upload Gallery Photos
-
-✔ View Trip Details
+- Jinja2
+- Werkzeug
+- Git
+- GitHub
 
 ---
 
-### Social Features
+## 📂 Project Structure
 
-✔ Feed
-
-✔ Likes
-
-✔ Comments
-
-✔ Search Users
-
-✔ View Public Profiles
-
----
-
-### Media
-
-✔ Trip Thumbnail
-
-✔ Stop Photos
-
-✔ Gallery Photos
-
----
-
-## Database Tables
-
-* users
-* trip
-* trip_stops
-* gallary
-* likes
-* comments
-
----
-
-## Project Structure
-
-```text
-FlexTrip
-
-├── app.py
-
-├── db.py
-
-├── requirements.txt
-
-├── README.md
-
-├── templates/
-
-│   ├── base.html
-
-│   ├── login.html
-
-│   ├── signup.html
-
-│   ├── feed.html
-
-│   ├── profile.html
-
-│   ├── search.html
-
-│   ├── create_trip.html
-
-│   ├── add_stops.html
-
-│   └── trip_details.html
-
-
+```
+Flex-Trip/
+│
 ├── static/
-
 │   ├── css/
-
-│   │   ├── base.css
-
-│   │   ├── login.css
-
-│   │   ├── signup.css
-
-│   │   ├── feed.css
-
-│   │   ├── profile.css
-
-│   │   ├── search.css
-
-│   │   ├── create_trip.css
-
-│   │   ├── add_stops.css
-
-│   │   └── trip_details.css
-
-
 │   └── uploads/
-
-│       ├── web/
-
-│       ├── gallery/
-
-│       └── ...
-
+│
+├── templates/
+│
+├── app.py
+├── db.py
+├── database.sql
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 
 ---
 
-## How to Run
+## 🚀 Installation
 
-### 1. Clone the repository
-
-```bash
-git clone <repository-link>
-```
-
-### 2. Move into project folder
+Clone the repository
 
 ```bash
-cd FlexTrip
+git clone https://github.com/Pravin-4593/Flex-Trip.git
 ```
 
-### 3. Install dependencies
+Move into the project
+
+```bash
+cd Flex-Trip
+```
+
+Create a virtual environment
+
+```bash
+python -m venv env
+```
+
+Activate it
+
+### Windows
+
+```bash
+env\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+source env/bin/activate
+```
+
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configure Database
+---
 
-Create a MySQL database and update the credentials in `db.py`.
+## ⚙ Environment Variables
+
+Create a `.env` file in the project root.
+
+```env
+DB_HOST=localhost
+DB_USER=your_username
+DB_PASSWORD=your_password
+DB_NAME=your_database
+
+SECRET_KEY=your_secret_key
+```
 
 ---
 
-### 5. Run the application
+## 🗄 Database Setup
+
+Create a MySQL database.
+
+Import the provided SQL file.
+
+```sql
+SOURCE database.sql;
+```
+
+---
+
+## ▶ Run the Application
 
 ```bash
 python app.py
 ```
 
----
+Open
 
-### 6. Open in browser
-
-```text
+```
 http://127.0.0.1:5000
 ```
 
 ---
 
-## Future Improvements
+## 📌 Future Improvements
 
-* Follow Users
-* Notifications
-* Saved Trips
-* Explore Page
-* Interactive Maps
-* Mobile Responsive Design
+- Profile Pictures
+- Notifications
+- Follow Users
+- Save Trips
+- Interactive Maps
+- Responsive Mobile UI
+- Trip Editing
+- Email Verification
 
 ---
 
-## Author
+## 👨‍💻 Author
 
-Created by **PRAVIN** using Flask and MySQL.
+**Pravin**
+
+GitHub:
+https://github.com/Pravin-4593
+
+---
+
+## 📄 License later
