@@ -44,8 +44,8 @@ A full-stack travel social media web application where users can share their tra
 
 ### Frontend
 
-- HTML5
-- CSS3
+- HTML
+- CSS
 - JavaScript
 
 ### Backend
