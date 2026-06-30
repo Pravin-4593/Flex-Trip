@@ -1,0 +1,137 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color:#E8DDCB;
+    color:#031634;
+    font-family:Arial,sans-serif;
+    
+}
+.signup{
+    display: flex;
+    gap: 2vmin;
+    font-size: 4vmin;
+    padding: 2vmax;
+    background-color: #CDB380;
+    width:70%;
+    margin:auto;
+    margin-top:2vmax;
+    border-radius:1vmax;
+    justify-content: space-around;
+}
+
+.img img{
+    border-radius: 5vmin;
+    padding: 2vmin;
+    height: 70vmin;
+    width: auto;
+    vertical-align: middle;
+}
+
+
+.signup-details{
+    /* background-color: #E8DDCB; */
+    width: 45vmin;
+    text-align: center;
+    border-radius: 5vmin;
+}
+
+.signup-details h1{
+    margin:4vmin;
+}
+
+.signup-details button{
+    background-color:#031634;
+    color:#E8DDCB;
+    font-size: 1.5vmax;
+    border:none;
+    border-radius:0.7vmax;
+    height:2.8vmax;
+    padding-left:1vmax;
+    padding-right:1vmax;
+    cursor:pointer;
+}
+
+.signup-details button:hover{
+    background-color:#033649;
+    color:#E8DDCB;
+}
+
+.signup-details input{
+    width:20vmax;
+    height:2.5vmax;
+    border:none;
+    border-radius:0.7vmax;
+    padding-left:1vmax;
+    font-size:1vmax;
+}
+
+.signup-details input:focus{
+    outline:none;
+    border:0.2vmin solid #036564;
+}
+
+.msg{
+    font-size: 4vmin;
+    margin: 2vmin;
+}
+
+.signup-details a{
+    text-decoration: none;
+    background-color:#031634;
+    color:#E8DDCB;
+    font-size: 1.5vmax;
+    padding: 0.5vmax;
+    border-radius: 0.5vmax;
+}
+
+.signup-details a:hover{
+    background-color:#033649;
+    color:#E8DDCB;
+}
+
+.error{
+    color:rgb(200, 44, 44);
+    margin-top:1vmax;
+}
+
+@media (max-width: 768px){
+
+    .signup{
+        width: 95%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .img img{
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .signup-details{
+        width: 100%;
+    }
+
+    .signup-details input{
+        width: 90%;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .signup-details button{
+        height: 40px;
+        font-size: 16px;
+        padding: 0 20px;
+    }
+
+    .signup-details a{
+        display: inline-block;
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+
+}

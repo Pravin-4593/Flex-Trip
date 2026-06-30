@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/create_trip.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="create_trip">
+        <h1>CREATE TRIP</h1>
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            <p>Title:</p>
+            <input type="text" name="triptitle" id="triptitle" placeholder="TRIP TITLE">
+            <br>
+            <p>Description:</p>
+            <textarea name="description" rows="6" maxlength="2000" placeholder="Describe your trip"></textarea>
+            <p>Thumbnail:</p>
+            <input type="file" name="thumbnail" id="thumbnail" accept=".jpg,.jpeg,.png,.webp">
+            <br><br>
+            <button type="submit">CREATE TRIP</button>
+        </form>
+    </div>
+{% endblock %}

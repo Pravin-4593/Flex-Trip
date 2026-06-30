@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block css %}
+    
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/profile.css') }}">
+
+{% endblock %}
+{% block content %}
+    <div class="profile-heading">
+        {% if owner %}
+            <h1>Welcome {{username}}</h1>
+            <div class="email">Email-ID : {{email}}</div>
+        {% else %}
+            <h1>{{username}}</h1>
+        {% endif %}
+        <div class="bio-form">
+            {% if owner %}
+                <form method="post">
+                    Bio :<textarea name="new_bio" id="new_bio" >{{bio}}</textarea><br>
+                    <button type="submit" name="bio">CHANGE BIO</button>
+                </form>
+            {% else %}
+                <div class="bio">Bio : <br>{{bio}}</div>
+            {% endif %}
+        </div>
+    </div><br>
+    {% if trips %}
+        {% if owner %}
+            <h2 class="trip-heading">MY TRIPS</h2>
+        {% else %}
+            <h2 class="trip-heading">TRIPS</h2>
+        {% endif %}
+        <div class="trips">
+            {% for trip in trips %}
+            <div class="trip-card">
+                <div class="title">
+                    <h2>{{trip[1]}}</h2>
+                </div>
+                <div class="trip-img">
+                    <a href="{{ url_for('trip_details',trip_id=trip[0]) }}"><img src="/{{trip[3]}}" alt="img"></a>
+                </div>
+                <div class="trip-detail">
+                    <div>&#10084;&#65039;Likes {{trip[5]}}</div>
+                    <div>{{trip[2][:100]}}</div>
+                    <div>{{trip[4]}}</div>
+                    {% if owner %}
+                        <div>status : {% if trip[6] %}
+                                complete
+                            {% else %}
+                                draft
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if trip[6] %}
+                        <div><a href="{{ url_for('trip_details',trip_id=trip[0]) }}">[view trip]</a>
+                    {% else %}
+                        <div><a href="{{ url_for('add_stops',trip_id=trip[0]) }}">[continue]</a>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if owner %}
+            <div class="msg">Create your first trip</div>
+        {% else %}
+             <div class="msg">No trips created yet</div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

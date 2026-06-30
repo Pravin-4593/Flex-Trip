@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex Trip</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base.css') }}">
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        
+        <a href="{{ url_for('feed' ) }}" id="logo-top"><img src="{{ url_for('static',filename='uploads/web/horizontal_logo_final.png' ) }}" alt="Flex Trip" id="navbar_logo"></a>
+        
+        <form action="{{ url_for('search' ) }}" method="get" class="search-form">
+            <span class="search-logo">&#128270;</span>
+            <input type="text" placeholder="username" name="username">
+            <button type="submit" name="search">Search</button>
+        </form>
+        <div class="nav-links">
+            <a href="{{ url_for('profile') }}"><span>&#128100;</span> Profile</a>
+        
+            <a href="{{ url_for('create_trip' ) }}"><span>&#10133;</span> Create Trip</a>
+        
+            <a href="{{ url_for('logout') }}"><span>&#128682;&#127939;</span> Logout</a>
+        </div>
+    </nav>
+    {% block content %}
+        
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="footer_box">
+            <div ><img src="{{ url_for('static',filename='uploads/web/Logo_crop.png' ) }}" alt="Flex Trip" id="footer_logo"></div><br>
+            <div>FLEX TRIP &#128506;&#65039;<br>Made with &hearts;</div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,210 @@
+.profile-heading{
+    font-size: 5vmin;
+    padding: 2vmax;
+    padding-top: 0;
+    background-color: #CDB380;
+    width:80%;
+    margin:auto;
+    margin-top:2vmax;
+    border-radius:1vmax;
+    
+    border:0.5vmax solid #036564;
+}
+
+.profile-heading h1{
+    font-size: 7vmin;
+    padding: 0.5vmin;
+    padding-bottom: 0;
+}
+
+.email{
+    color:#031634;
+    padding: 1vmin;
+    padding-top: 0;
+}
+
+.bio-form{
+    padding: 1vmin;
+}
+
+.bio-form textarea{
+    font-size: 3vmin;
+    width:90%;
+    height:5vmax;
+    padding:1vmax;
+    border-radius:1vmax;
+}
+
+.profile-heading button{
+    background-color:#031634;
+    color:#E8DDCB;
+    font-size: 1.2vmax;
+    border:none;
+    border-radius:0.7vmax;
+    height:2.8vmax;
+    padding-left:1vmax;
+    padding-right:1vmax;
+    margin-top: 1vmin;
+    cursor:pointer;
+}
+
+.profile-heading button:hover{
+    background-color:#033649;
+    color:#E8DDCB;
+}
+
+.trip-heading{
+    font-size: 6vmin;
+    font-weight: bold;
+    padding: 0vmin;
+    padding-left:3vmax;
+    padding-bottom: 0;
+    text-align: center;
+}
+
+.trips{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(25vmax,1fr));
+    gap:2vmax;
+    padding:3vmax;
+    padding-top: 1vmax;
+}
+
+.trip-card{
+    width: 100%;
+    justify-self: center;
+    background-color:#CDB380;
+;
+    margin-top:3vmax;
+    padding:2vmax;
+    border-radius:1vmax;
+    box-shadow:0 0 1vmax rgba(3,22,52,0.25);
+}
+
+.title{
+    margin-bottom:1vmax;
+}
+
+.title h2{
+    margin:0;
+    font-size:2vmax;
+}
+
+.trip-img{
+    text-align:center;
+}
+
+.trip-img img{
+    width:100%;
+    height:22vmax;
+    object-fit:cover;
+    border-radius:1vmax;
+}
+
+.trip-detail{
+    margin-top:1.5vmax;
+    display:flex;
+    flex-direction:column;
+    gap:1vmin;
+    font-size:1.1vmax;
+}
+
+.trip-detail a{
+    text-decoration:none;
+    color:#036564;
+    font-weight:bold;
+}
+
+.trip-detail a:hover{
+    color:#031634;
+}
+
+.trip-detail div{
+    line-height:1.8;
+}
+
+.msg{
+    font-size: 3vmax;
+    text-align: center;
+}
+
+.bio{
+    white-space:pre-line;
+}
+
+@media (max-width:768px){
+
+    .profile-heading{
+        width:95%;
+        padding:1rem;
+        border-width:3px;
+    }
+
+    .profile-heading h1{
+        font-size:2rem;
+    }
+
+    .email,
+    .bio{
+        font-size:1rem;
+    }
+
+    .bio-form textarea{
+        width:100%;
+        min-height:120px;
+        height:auto;
+        font-size:1rem;
+        padding:0.8rem;
+    }
+
+    .profile-heading button{
+        height:40px;
+        font-size:1rem;
+        padding:0 20px;
+    }
+
+    .trip-heading{
+        font-size:2rem;
+        padding:0;
+        margin:2rem 0 1rem;
+    }
+
+    .trips{
+        grid-template-columns:1fr;
+        padding:1rem;
+        gap:1.5rem;
+    }
+
+    .trip-card{
+        width:100%;
+        margin-top:0;
+        padding:1rem;
+    }
+
+    .title h2{
+        font-size:1.5rem;
+    }
+
+    .trip-img img{
+        width:100%;
+        height:auto;
+        max-height:300px;
+        object-fit:cover;
+    }
+
+    .trip-detail{
+        font-size:1rem;
+        gap:0.5rem;
+    }
+
+    .trip-detail div{
+        line-height:1.5;
+        word-break:break-word;
+    }
+
+    .msg{
+        font-size:1.5rem;
+        padding:1rem;
+    }
+
+}

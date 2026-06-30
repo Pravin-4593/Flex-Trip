@@ -1,0 +1,128 @@
+.gallary{
+    width:80%;
+    margin:auto;
+    margin-top:2vmax;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(18vmax,1fr));
+    gap:2vmax;
+}
+
+.pic{
+    background-color:#CDB380;
+    padding:1.5vmax;
+    border-radius:2vmax;
+    box-shadow:0 0 1vmax rgba(3,22,52,0.2);
+}
+
+.pic img{
+    width:100%;
+    height:15vmax;
+    object-fit:scale-down;
+    border-radius:2vmax;
+}
+
+.new_img{
+    width:60%;
+    margin:auto;
+    margin-top:3vmax;
+    margin-bottom:3vmax;
+    background-color:#CDB380;
+    padding:3vmax;
+    border-radius:1.5vmax;
+    box-shadow:0 0 1vmax rgba(3,22,52,0.2);
+}
+
+.new_img form{
+    display:flex;
+    flex-direction:column;
+}
+
+.new_img input[type="file"]{
+    font-size:1vmax;
+}
+
+.new_img p{
+    font-size:1.4vmax;
+    font-weight:bold;
+    margin-bottom:0.7vmax;
+    margin-top:1vmax;
+}
+
+.new_img button{
+    width:18vmax;
+    height:3.2vmax;
+    margin:auto;
+    margin-top:1.5vmax;
+    border:none;
+    border-radius:0.8vmax;
+    background-color:#036564;
+    color:#E8DDCB;
+    font-size:1.2vmax;
+    cursor:pointer;
+}
+
+.new_img button:hover{
+    background-color:#033649;
+}
+
+.new_img input:focus{
+    outline:none;
+    border:0.2vmin solid #036564;
+}
+
+.error{
+    color:rgb(200, 44, 44);
+    margin-top:1vmax;
+}
+
+@media (max-width:768px){
+
+    h1,
+    h2{
+        text-align:center;
+    }
+
+    .gallary{
+        width:95%;
+        grid-template-columns:1fr;
+        gap:1.5rem;
+    }
+
+    .pic{
+        padding:1rem;
+    }
+
+    .pic img{
+        width:100%;
+        height:auto;
+        max-height:300px;
+        object-fit:contain;
+    }
+
+    .new_img{
+        width:95%;
+        padding:1rem;
+    }
+
+    .new_img p{
+        font-size:1.2rem;
+    }
+
+    .new_img input[type="file"]{
+        width:100%;
+        font-size:1rem;
+    }
+
+    .new_img button{
+        width:100%;
+        max-width:250px;
+        height:40px;
+        font-size:1rem;
+    }
+
+    .error{
+        font-size:1rem;
+        text-align:center;
+    }
+
+}

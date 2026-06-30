@@ -1,0 +1,125 @@
+.create_trip{
+    width:60%;
+    margin:auto;
+    margin-top:3vmax;
+    background-color:#CDB380;
+    padding:3vmax;
+    border-radius:1.5vmax;
+    box-shadow:0 0 1vmax rgba(3,22,52,0.2);
+}
+
+.create_trip h1{
+    text-align:center;
+    font-size:3vmax;
+    margin-bottom:2vmax;
+}
+
+.create_trip form{
+    display:flex;
+    flex-direction:column;
+}
+
+.create_trip p{
+    font-size:1.5vmax;
+    font-weight:bold;
+    margin-bottom:0.7vmax;
+    margin-top:1vmax;
+}
+
+.create_trip input[type="text"]{
+    width:100%;
+    height:3vmax;
+    border:none;
+    border-radius:0.8vmax;
+    padding-left:1vmax;
+    font-size:1.1vmax;
+    box-sizing:border-box;
+}
+
+.create_trip textarea{
+    width:100%;
+    padding:1vmax;
+    font-size:1.1vmax;
+    border:none;
+    border-radius:1vmax;
+    box-sizing:border-box;
+}
+
+.create_trip input[type="file"]{
+    font-size:1vmax;
+}
+
+.create_trip button{
+    width:15vmax;
+    height:3.2vmax;
+    margin:auto;
+    margin-top:2vmax;
+    border:none;
+    border-radius:0.8vmax;
+    background-color:#036564;
+    color:#E8DDCB;
+    font-size:1.2vmax;
+    cursor:pointer;
+}
+
+.create_trip button:hover{
+    background-color:#033649;
+}
+
+.create_trip input:focus,
+.create_trip textarea:focus{
+    outline:none;
+    border:0.2vmin solid #036564;
+}
+
+.error{
+    color:rgb(200, 44, 44);
+    margin-top:1vmax;
+}
+
+@media (max-width:768px){
+
+    .create_trip{
+        width:95%;
+        padding:1rem;
+        margin-top:1.5rem;
+    }
+
+    .create_trip h1{
+        font-size:2rem;
+    }
+
+    .create_trip p{
+        font-size:1.1rem;
+    }
+
+    .create_trip input[type="text"]{
+        width:100%;
+        height:40px;
+        font-size:1rem;
+    }
+
+    .create_trip textarea{
+        width:100%;
+        min-height:120px;
+        font-size:1rem;
+    }
+
+    .create_trip input[type="file"]{
+        width:100%;
+        font-size:1rem;
+    }
+
+    .create_trip button{
+        width:100%;
+        max-width:250px;
+        height:40px;
+        font-size:1rem;
+    }
+
+    .error{
+        text-align:center;
+        font-size:1rem;
+    }
+
+}

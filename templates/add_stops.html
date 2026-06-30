@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/add_stops.css') }}">
+{% endblock %}
+{% block content %}
+    <h1>ADD STOPS</h1>
+    {% if stops %}
+        <h2>Current Stops</h2>
+    {% else %}
+        <h2>No stops added yet</h2>
+    {% endif %}
+    <div class="old_stops">
+        {% for stop in stops %}
+            <div class="stop">
+                <div>&#10142; {{stop[0]}}) {{stop[1]}}</div>
+                <div><img src="/{{stop[2]}}" alt="stop img"></div>
+            </div>
+        {% endfor %}
+        <br>
+    </div>
+    <div class="new_stop">
+        <form method="post" enctype="multipart/form-data">
+            <button type="submit" name="action" value="delete">DELETE LAST STOP</button>
+            <br>
+            <h2>NEW STOP</h2>
+            {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <p>Stop name :</p>
+            <input type="text" name="stop_name" id="stop_name" placeholder="STOP NAME">
+            <br>
+            <p>Description</p>
+            <textarea name="description" id="description" rows="6" placeholder="DESCRIBE YOUR STOP"></textarea>
+            <br>
+            <p>Add stop photo :</p>
+            <input type="file" name="photo" id="photo" accept=".jpg,.jpeg,.png,.webp">
+            <br><br>
+            <button type="submit" name="action" value="add">ADD STOP</button>
+            <br>
+            <button type="submit" name="action" value="done">DONE</button>
+        </form>
+    </div>
+{% endblock %}

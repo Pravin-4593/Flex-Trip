@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/search.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="search">
+    {% if search %}
+        {% if users %}
+            {% for user in users %}
+            <a href="{{ url_for('view_profile',user_id=user[0]) }}">
+                <div class="username">
+                    {{user[1]}}
+                    <br>
+                </div>
+                <div class="user-details">trips : {{user[2]}} <br>since : {{user[3]}}</div>
+            </a>
+                <br>
+            {% endfor %}
+        {% else %}
+            <div class="msg">No user found !</div>
+        {% endif %}
+    {% else %}
+        <div class="msg">Search user !</div>
+    {% endif %}
+    </div>   
+{% endblock %}

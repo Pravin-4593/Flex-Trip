@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block css %}
+
+<link rel="stylesheet"href="{{ url_for('static',filename='css/feed.css') }}">
+
+{% endblock %}
+{% block content %}
+    {% if trips %}
+    <div class="feed">
+        {% for trip in trips %}
+        <div class="trip-card">
+            <div class="title">
+                <h2>{{trip[2]}}</h2>
+                <h3><a href="{{ url_for('view_profile',user_id=trip[1]) }}">by {{trip[6]}}</a></h3>
+            </div>
+            <div class="trip-img">
+                <a href="{{ url_for('trip_details',trip_id=trip[0]) }}"><img src="/{{trip[4]}}" alt="img"></a>
+            </div>
+            <div class="trip-detail">
+                <div>&#10084;&#65039;Likes {{trip[7]}}</div>
+                <div>{{trip[3][:100]}}</div>
+                <div>{{trip[5]}}</div>
+                <div><a href="{{ url_for('trip_details',trip_id=trip[0]) }}">[view trip]</a></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div>Be the first to create a trip !</div>
+    {% endif %}
+{% endblock %}

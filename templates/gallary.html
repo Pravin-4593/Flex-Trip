@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/gallary.css') }}">
+{% endblock %}
+{% block content %}
+    <h1>TRIP GALLARY</h1>
+    {% if images %}
+        <h2>PICS:</h2>
+    {% else %}
+        <h2>No pics uploaded yet</h2>
+    {% endif %}
+    <div class="gallary">
+        {% for pic in images %}
+            <div class="pic"><img src="/{{pic[0]}}" alt="img" class="box" width="300px"></div>
+        {% endfor %}
+    </div>
+    <div class="new_img">
+        <form method="post" enctype="multipart/form-data">
+            <button type="submit" name="action" value="delete">DELETE LAST IMAGE</button>
+            <br>
+            <p>ADD NEW IMAGE</p>
+            <br>
+            {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <input type="file" name="picture" accept=".jpg,.jpeg,.png,.webp">
+            <br><br>
+            <button type="submit" name="action" value="add">ADD</button>
+            <br>
+            <button type="submit" name="action" value="done">DONE</button>
+        </form>
+    </div>
+{% endblock %}

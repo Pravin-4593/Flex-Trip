@@ -1,0 +1,322 @@
+.trip-heading{
+    display: flex;
+    gap: 2vmin;
+    font-size: 4vmin;
+    padding: 2vmax;
+    padding-top: 0;
+    background-color: #CDB380;
+    width:80%;
+    margin:auto;
+    margin-top:2vmax;
+    border-radius:1vmax;
+}
+.trip-heading img{
+    border-radius: 5vmin;
+    padding: 2vmin;
+    height: 50vmin;
+    width: auto;
+}
+
+.trip-heading h1{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.trip-details{
+    width:45%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:0.5vmax;
+}
+
+.trip-details h2 {
+    margin:0;
+    font-size:3vmax;
+    font-weight:normal;
+}
+
+.trip-details h2 a{
+    text-decoration: none;
+    color:#036564;
+}
+
+.likes a{
+    text-decoration: none;
+    font-size: 2.5vmax;
+}
+
+.comment_top a{
+    text-decoration: none;
+    color:#036564;
+    font-weight: bold;
+}
+
+.stops{
+    width:80%;
+    margin:auto;
+    margin-top:3vmax;
+}
+
+.stop-heading{
+    font-size:3vmax;
+    color:#031634;
+    margin-bottom:2vmax;
+    text-align: center;
+}
+
+.stop-heading h3{
+    margin:0;
+}
+
+.all-stops{
+    display:flex;
+    flex-direction:column;
+}
+
+.stop-detail{
+    background:#CDB380;
+    width:80%;
+    margin:auto;
+    padding:2vmax;
+    border-radius:1.5vmax;
+    border-left:0.8vmax solid #036564;
+    box-shadow:0 0 1vmax rgba(3,22,52,0.2);
+}
+
+.stop-title{
+    font-size:2vmax;
+    font-weight:bold;
+    color:#031634;
+    margin-bottom:1vmax;
+}
+
+.stop-description{
+    font-size:1.5vmax;
+    color:#033649;
+    margin-bottom:1.5vmax;
+}
+
+.stop-img{
+    text-align:center;
+}
+
+.stop-img img{
+    width:100%;
+    max-width:35vmax;
+    height:20vmax;
+    object-fit:cover;
+    border-radius:1vmax;
+}
+
+.arrow{
+    text-align:center;
+    font-size:4vmax;
+    color:#036564;
+    font-weight:bolder;
+    padding:1vmax;
+}
+
+.gallary{
+    width:80%;
+    margin:auto;
+    margin-top:3vmax;
+}
+
+.gallary h2{
+    text-align: center;
+    font-size:3vmax;
+    margin-bottom:1vmax;
+}
+
+.photos{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(18vmax,1fr));
+    gap:2vmax;
+    margin-top:2vmax;
+}
+
+.photo{
+    background:#CDB380;
+    padding:1vmax;
+    border-radius:1vmax;
+    box-shadow:0 0 1vmax rgba(3,22,52,0.2);
+}
+
+.photo img{
+    width:100%;
+    height:18vmax;
+    object-fit:scale-down;
+    border-radius:2vmax;
+}
+
+.photo{
+    transition:0.3s;
+}
+
+.photo:hover{
+    transform:scale(1.03);
+}
+
+.comments{
+    width:80%;
+    margin:auto;
+    margin-top:3vmax;
+}
+
+#comments-heading{
+    text-align: center;
+    font-size:3vmax;
+    font-weight:bold;
+    margin-bottom:2vmax;
+}
+
+.add_comment{
+    margin-bottom:3vmax;
+    text-align: center;
+}
+
+.add_comment textarea{
+    width:100%;
+    height:5vmax;
+    padding:1vmax;
+    font-size:1.4vmax;
+    border:none;
+    border-radius:1vmax;
+    box-sizing:border-box;
+}
+
+.add_comment button{
+    margin-top:1vmax;
+    background-color:#036564;
+    color:#E8DDCB;
+    font-size:1.2vmax;
+    border:none;
+    border-radius:0.7vmax;
+    padding:0.8vmax 1.5vmax;
+    cursor:pointer;
+}
+
+.add_comment button:hover{
+    background-color:#033649;
+}
+
+.all_comments{
+    display:flex;
+    flex-direction:column;
+    gap:2vmax;
+}
+
+.comment{
+    background:#CDB380;
+    padding:1.5vmax;
+    border-radius:1vmax;
+    box-shadow:0 0 1vmax rgba(3,22,52,0.15);
+}
+
+.comment div:first-child{
+    font-size:1.3vmax;
+    font-weight:bold;
+    color:#031634;
+}
+
+.comment div:last-child{
+    margin-top:1vmax;
+    font-size:1.2vmax;
+    line-height:1.7;
+    color:#033649;
+}
+
+@media (max-width:768px){
+
+    .trip-heading{
+        width:95%;
+        flex-direction:column;
+        align-items:center;
+        padding:1rem;
+    }
+
+    .trip-heading img{
+        width:100%;
+        max-width:350px;
+        height:auto;
+    }
+
+    .trip-details{
+        width:100%;
+        text-align:center;
+        align-items:center;
+    }
+
+    .trip-details h1{
+        font-size:2rem;
+    }
+
+    .trip-details h2{
+        font-size:1.4rem;
+    }
+
+    .likes a{
+        font-size:1.3rem;
+    }
+
+    .stops,
+    .gallary,
+    .comments{
+        width:95%;
+    }
+
+    .stop-detail{
+        width:100%;
+        padding:1rem;
+    }
+
+    .stop-title{
+        font-size:1.3rem;
+    }
+
+    .stop-description{
+        font-size:1rem;
+    }
+
+    .stop-img img{
+        width:100%;
+        height:auto;
+        max-width:320px;
+    }
+
+    .arrow{
+        font-size:2rem;
+    }
+
+    .gallary h2,
+    #comments-heading,
+    .stop-heading{
+        font-size:2rem;
+    }
+
+    .photos{
+        grid-template-columns:1fr;
+    }
+
+    .photo img{
+        width:100%;
+        height:auto;
+    }
+
+    .add_comment textarea{
+        width:100%;
+        min-height:100px;
+        font-size:1rem;
+    }
+
+    .add_comment button{
+        font-size:1rem;
+        padding:10px 20px;
+    }
+
+    .comment div:first-child,
+    .comment div:last-child{
+        font-size:1rem;
+    }
+}

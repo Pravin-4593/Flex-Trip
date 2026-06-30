@@ -1,0 +1,33 @@
+.search{
+    display: flex;
+    flex-direction: column;
+    margin: 2vmin;
+    width: 80%;
+}
+
+.search a{
+    margin-left: 1vmax;
+    margin-right: 1vmax;
+    text-decoration: none;
+    border-radius: 1vmax;
+    color: #031634;
+    background-color: #CDB380;
+    width: 80%;
+}
+
+.username{
+    margin: 0.5vmax;
+    font-size: 5vmin;
+    font-weight: bold;
+}
+
+.user-details{
+    margin: 0.5vmax;
+    font-size: 3vmin;
+}
+
+.msg{
+    margin: 0.5vmax;
+    font-size: 5vmin;
+    font-weight: bold;
+}

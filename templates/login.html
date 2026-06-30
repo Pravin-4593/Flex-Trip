@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login.css' ) }}">
+</head>
+<body>
+    <div class="login">
+        <div class="img"><img src="{{ url_for('static',filename='uploads/web/Logo_crop.png' ) }}" alt="Flex Trip"></div>
+        <div class="login-details">
+            <h1>Login</h1>
+            {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username/email"
+                    autocomplete="username"
+                    required
+                >
+                <br><br>
+                <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+                >
+                <br><br>
+                <button type="submit" name="action" value="login">
+                    Login
+                </button>
+            </form>
+            <form method="post">
+                <br>
+                <div class="msg">New to Flex Trip?</div>
+                <button type="submit" name="action" value="signup"> Signup</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

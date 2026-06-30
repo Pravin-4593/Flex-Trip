@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet"href="{{ url_for('static',filename='css/trip_details.css') }}">
+{% endblock %}
+    {% block content %}
+    <div class="trip-heading">
+        <div class="trip-img">
+            <img src="/{{thumbnail}}" alt="img">
+        </div>
+        <div class="trip-details">
+            <h1>{{trip_title}}</h1>
+            <h2><a href="{{ url_for('view_profile',user_id=user_id ) }}">by  {{username}}</a></h2>
+            <div class="likes">
+                <a href="{{ url_for('likes',trip_id=trip_id ) }}" >
+                {% if like %}
+                &#10084;&#65039;
+                {% else %}
+                &#129293;
+                {% endif %} 
+                {{like_count}}
+            </a></div>
+            <div>ABOUT : {{description}}</div>
+            <div>Created on :{{created_on}}</div>
+            <div class="comment_top"><a href="#comments">[view comments]</a></div>
+        </div>
+    </div>
+    <div class="stops">
+        <div class="stop-heading">
+            {% if stops %}
+                <h3>STOPS</h3>
+            {% else %}
+                <h4>No stops added yet</h4>
+            {% endif %}
+        </div>
+        <div class="all-stops">
+            {% for stop in stops %}
+                <div class="stop-detail">
+                    <div class="stop-title">&#10142; {{stop[0]}}) {{stop[1]}}</div>
+                    <div class="stop-description">{{stop[3]}}</div>
+                    <div class="stop-img"><img src="/{{stop[2]}}" alt="img"></div>
+                </div>
+                {% if not loop.last %}
+                    <div class="arrow">
+                    ↓
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="gallary">
+        {% if images %}
+            <h2>TRIP GALLARY</h2>
+        {% else %}
+            <h2>No pics uploaded yet</h2>
+        {% endif %}
+        <div class="photos">
+            {% for pic in images %}
+                <div class="photo"><a href="/{{pic[0]}}" target="_blank"><img src="/{{pic[0]}}" alt="img" class="box"></a></div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="comments" id="comments">
+        <div id="comments-heading" >Comments </div>
+        <form method="post" class="add_comment">
+            <textarea name="comment" id="comment" placeholder="add comment" rows="3"></textarea><br> 
+            <button type="submit">ADD COMMENT</button>  
+        </form>
+        {% if comments %}
+            <div class="all_comments">
+                {% for comment in comments %}
+                    <div class="comment">
+                        <div>{{comment[1]}} <br>{{comment[2]}}</div><br>
+                        <div>{{comment[0]}}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div>Be the first to comment !</div>
+        {% endif %}    
+    </div>
+{% endblock %}

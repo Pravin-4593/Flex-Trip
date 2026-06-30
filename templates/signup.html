@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/signup.css' ) }}">
+</head>
+<body>
+    <div class="signup">
+        <div class="img"><img src="{{ url_for('static',filename='uploads/web/Logo_crop.png' ) }}" alt="Flex Trip"></div>
+        <div class="signup-details">
+            <h1>Signup</h1>
+            {% if error %}
+                <div class="error">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <form method="POST">
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required
+                >
+                <br><br>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                >
+                <br><br>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    minlength="8"
+                    required
+                >
+                <br><br>
+                <button type="submit">
+                    Signup
+                </button>
+                <br>
+                <div class="msg">Already have account?</div>
+                <a href="{{ url_for('login' ) }}">Login</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
