@@ -9,7 +9,7 @@ A full-stack travel social media web application where users can share their tra
 > Add screenshots here after deployment.
 
 ### Feed
-![Feed](screenshots/feed.png)
+![Feed](screenshots/feed.jpeg)
 
 ### Trip Details
 ![Trip Details](screenshots/trip_details.jpeg)
