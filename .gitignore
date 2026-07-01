@@ -3,3 +3,4 @@ __pycache__/
 env/
 .env
 *.pyc
+Demo_database_reset_backup/
