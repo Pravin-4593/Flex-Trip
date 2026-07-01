@@ -4,6 +4,10 @@ A full-stack travel social media web application where users can share their tra
 
 ---
 
+## Live Demo
+
+🌐 https://flex-trip.onrender.com
+
 ## 📸 Screenshots
 
 ### Feed
