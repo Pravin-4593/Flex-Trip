@@ -1,14 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for, session, render_template
-from db import db, cursor
-from werkzeug.security import generate_password_hash,check_password_hash
 from dotenv import load_dotenv
+load_dotenv()
+
+from flask import Flask, render_template, request, redirect, url_for, session
+from db import db, cursor
+from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import time
 
-load_dotenv()
-
 app = Flask(__name__)
-
 
 #Signup page
 @app.route("/signup", methods=["GET", "POST"])
@@ -585,4 +584,4 @@ def likes(trip_id):
 
 app.secret_key = os.getenv("SECRET_KEY")
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
