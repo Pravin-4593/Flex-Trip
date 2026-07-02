@@ -544,16 +544,32 @@ def feed():
         return redirect(url_for("login"))
 
     sql="""
-    select trip.trip_id ,trip.user_id,trip.title,trip.description,trip.thumbnail,trip.created_at,users.username,COUNT(likes.trip_id)
-    from trip
-    join users on users.id=trip.user_id
-    left join likes on likes.trip_id=trip.trip_id
-    where is_complete=true
-    group by trip.trip_id
-    order by trip.created_at desc"""
+    SELECT
+        trip.trip_id,
+        trip.user_id,
+        trip.title,
+        trip.description,
+        trip.thumbnail,
+        trip.created_at,
+        users.username,
+        COUNT(DISTINCT likes.user_id) AS likes,
+        COUNT(DISTINCT trip_stops.sequence_number) AS stops,
+        COUNT(DISTINCT gallary.sequence_number) AS photos
+    FROM trip
+    JOIN users
+        ON users.id = trip.user_id
+    LEFT JOIN likes
+        ON likes.trip_id = trip.trip_id
+    LEFT JOIN trip_stops
+        ON trip_stops.trip_id = trip.trip_id
+    LEFT JOIN gallary
+        ON gallary.trip_id = trip.trip_id
+    WHERE trip.is_complete = TRUE
+    GROUP BY trip.trip_id
+    ORDER BY trip.created_at DESC;"""
     cursor.execute(sql)
     trips=cursor.fetchall()
-
+    
     return render_template("feed.html",trips=trips)  
 
 

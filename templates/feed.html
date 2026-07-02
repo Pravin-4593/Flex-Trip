@@ -18,8 +18,10 @@
             </div>
             <div class="trip-detail">
                 <div>&#10084;&#65039;Likes {{trip[7]}}</div>
-                <div>{{trip[3][:100]}}</div>
-                <div>{{trip[5]}}</div>
+                <div> 🛣 Stops {{trip[8]}} </div>
+                <div>📷Gallary Photos {{trip[9]}} </div><br>
+                <div>{{trip[3][:100]}}</div><br>
+                <div>🗓 {{trip[5]}}</div>
                 <div><a href="{{ url_for('trip_details',trip_id=trip[0]) }}">[view trip]</a></div>
             </div>
         </div>
