@@ -163,10 +163,10 @@ def view_profile(user_id):
     bio=details[1]
 
     sql2="""
-    select trip.trip_id,trip.title,trip.description,trip.thumbnail,trip.created_at,COUNT(likes.trip_id)
+    select trip.trip_id,trip.title,trip.description,trip.thumbnail,trip.created_at,COUNT(likes.trip_id),trip.is_complete
     from trip
     left join likes on likes.trip_id=trip.trip_id
-    where trip.user_id=%s
+    where trip.user_id=%s and trip.is_complete=true
     group by trip.trip_id
     order by trip.created_at desc"""
     cursor.execute(sql2,(user_id,))
