@@ -319,7 +319,6 @@ def add_stops(trip_id):
 
             if sequence_number is None:
                 return redirect(url_for("add_stops",trip_id=trip_id))
-            sequence_number=sequence_number[0]
 
             sql4="""
             select photo_public_id
