@@ -52,6 +52,9 @@
                     {% endif %}
                     {% if trip[6] %}
                         <div><a href="{{ url_for('trip_details',trip_id=trip[0]) }}">[view trip]</a>
+                            {% if owner %}
+                            <a href="{{ url_for('edit_trip',trip_id=trip[0]) }}">&emsp;[continue editing]</a>
+                            {% endif %}  
                     {% else %}
                         <div><a href="{{ url_for('add_stops',trip_id=trip[0]) }}">[continue]</a>
                     {% endif %}

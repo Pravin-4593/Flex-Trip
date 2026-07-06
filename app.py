@@ -678,6 +678,42 @@ def likes(trip_id):
 
     return redirect(url_for("trip_details",trip_id=trip_id))
 
+
+#edit trip
+@app.route("/edit_trip/<int:trip_id>",methods=["GET"])
+def edit_trip(trip_id):
+    user_id=session.get("id")
+    if(not user_id):
+        return redirect(url_for("login"))
+    
+    sql="""
+    select user_id
+    from trip
+    where trip_id=%s"""
+    cursor.execute(sql,(trip_id,))
+    details = cursor.fetchone()
+
+    if details is None:
+        return redirect(url_for("profile"))
+
+    uid = details[0]
+    
+    if not user_id==uid:
+        return redirect(url_for("profile"))
+    
+    sql1="""
+    UPDATE trip
+    SET is_complete = false
+    WHERE trip_id = %s"""
+    cursor.execute(sql1,(trip_id,))
+    try:
+        db.commit()
+    except Exception:
+        db.rollback()
+        return redirect(url_for("profile"))
+    return redirect(url_for("add_stops", trip_id=trip_id))
+    
+
 app.secret_key = os.getenv("SECRET_KEY")
 if __name__ == "__main__":
     app.run(debug=True)
