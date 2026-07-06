@@ -320,3 +320,30 @@
         font-size:1rem;
     }
 }
+
+.owner-actions{
+    display:flex;
+    gap:12px;
+    align-items:center;
+}
+
+.owner-actions a{
+    text-decoration: none;
+    background-color:#036564;
+}
+.owner-actions a,
+.owner-actions button{
+    margin-top:1vmax;
+    background-color:#036564;
+    color:#E8DDCB;
+    font-size:1.2vmax;
+    border:none;
+    border-radius:0.7vmax;
+    padding:0.8vmax 1.5vmax;
+    cursor:pointer;
+}
+
+.owner-actions a:hover,
+.owner-actions button:hover{
+    background-color:#033649;
+}

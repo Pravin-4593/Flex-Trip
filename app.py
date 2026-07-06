@@ -511,6 +511,10 @@ def trip_details(trip_id):
     user_id=details[3]
     created_on=details[4]
 
+    owner=False
+    if(current_user_id==user_id):
+        owner=True
+
     sql4="""
     select username 
     from users
@@ -581,7 +585,7 @@ def trip_details(trip_id):
     cursor.execute(sql7,(trip_id,))
     comments=cursor.fetchall()
 
-    return render_template("trip_details.html",username=username,trip_title=trip_title,user_id=user_id,thumbnail=thumbnail,description=description,stops=stops,images=images,trip_id=trip_id,like=like,created_on=created_on,like_count=like_count,comments=comments)
+    return render_template("trip_details.html",username=username,trip_title=trip_title,user_id=user_id,thumbnail=thumbnail,description=description,stops=stops,images=images,trip_id=trip_id,like=like,created_on=created_on,like_count=like_count,comments=comments,owner=owner)
 
 
 #Search
@@ -713,6 +717,82 @@ def edit_trip(trip_id):
         return redirect(url_for("profile"))
     return redirect(url_for("add_stops", trip_id=trip_id))
     
+
+#delete trip
+@app.route("/delete_trip/<int:trip_id>", methods=["POST"])
+def delete_trip(trip_id):
+
+    user_id = session.get("id")
+    if not user_id:
+        return redirect(url_for("login"))
+
+    sql = """
+    SELECT user_id, thumbnail_public_id
+    FROM trip
+    WHERE trip_id=%s
+    """
+    cursor.execute(sql, (trip_id,))
+    details = cursor.fetchone()
+
+    if details is None:
+        return redirect(url_for("profile"))
+
+    if details[0] != user_id:
+        return redirect(url_for("profile"))
+
+    thumbnail_public_id = details[1]
+
+    sql = """
+    SELECT photo_public_id
+    FROM trip_stops
+    WHERE trip_id=%s
+    """
+    cursor.execute(sql, (trip_id,))
+    stop_images = cursor.fetchall()
+
+    sql = """
+    SELECT image_public_id
+    FROM gallary
+    WHERE trip_id=%s
+    """
+    cursor.execute(sql, (trip_id,))
+    gallery_images = cursor.fetchall()
+
+
+    sql = """
+    DELETE FROM trip
+    WHERE trip_id=%s
+    """
+    cursor.execute(sql, (trip_id,))
+
+    try:
+        db.commit()
+    except Exception:
+        db.rollback()
+        return redirect(url_for("trip_details", trip_id=trip_id))
+
+    
+    try:
+        delete_image(thumbnail_public_id)
+    except Exception:
+        pass
+
+    
+    for image in stop_images:
+        try:
+            delete_image(image[0])
+        except Exception:
+            pass
+
+    
+    for image in gallery_images:
+        try:
+            delete_image(image[0])
+        except Exception:
+            pass
+
+    return redirect(url_for("profile"))
+
 
 app.secret_key = os.getenv("SECRET_KEY")
 if __name__ == "__main__":
