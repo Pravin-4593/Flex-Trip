@@ -5,7 +5,7 @@
     {% block content %}
     <div class="trip-heading">
         <div class="trip-img">
-            <a href="/{{thumbnail}}" target="_blank"><img src="/{{thumbnail}}" alt="img"></a>
+            <a href="{{thumbnail}}" target="_blank"><img src="{{thumbnail}}" alt="img"></a>
         </div>
         <div class="trip-details">
             <h1>{{trip_title}}</h1>
@@ -37,7 +37,7 @@
                 <div class="stop-detail">
                     <div class="stop-title">&#10142; {{stop[0]}}) {{stop[1]}}</div>
                     <div class="stop-description">{{stop[3]}}</div>
-                    <div class="stop-img"><a href="/{{stop[2]}}" target="_blank"><img src="/{{stop[2]}}" alt="img"></a></div>
+                    <div class="stop-img"><a href="{{stop[2]}}" target="_blank"><img src="{{stop[2]}}" alt="img"></a></div>
                 </div>
                 {% if not loop.last %}
                     <div class="arrow">
@@ -55,7 +55,7 @@
         {% endif %}
         <div class="photos">
             {% for pic in images %}
-                <div class="photo"><a href="/{{pic[0]}}" target="_blank"><img src="/{{pic[0]}}" alt="img" class="box"></a></div>
+                <div class="photo"><a href="{{pic[0]}}" target="_blank"><img src="{{pic[0]}}" alt="img" class="box"></a></div>
             {% endfor %}
         </div>
     </div>

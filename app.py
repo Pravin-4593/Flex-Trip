@@ -5,7 +5,10 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from db import db, cursor
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+import cloudinary_config
 import time
+
+from utils import upload_image
 
 app = Flask(__name__)
 
@@ -121,7 +124,7 @@ def profile():
         bio=details[2]
 
         sql2="""
-        select trip.trip_id,trip.title,trip.description,trip.thumbnail,trip.created_at,COUNT(likes.trip_id),trip.is_complete
+        select trip.trip_id,trip.title,trip.description,trip.thumbnail_url,trip.created_at,COUNT(likes.trip_id),trip.is_complete
         from trip
         left join likes on likes.trip_id=trip.trip_id
         where trip.user_id=%s
@@ -163,7 +166,7 @@ def view_profile(user_id):
     bio=details[1]
 
     sql2="""
-    select trip.trip_id,trip.title,trip.description,trip.thumbnail,trip.created_at,COUNT(likes.trip_id),trip.is_complete
+    select trip.trip_id,trip.title,trip.description,trip.thumbnail_url,trip.created_at,COUNT(likes.trip_id),trip.is_complete
     from trip
     left join likes on likes.trip_id=trip.trip_id
     where trip.user_id=%s and trip.is_complete=true
@@ -178,29 +181,44 @@ def view_profile(user_id):
 @app.route("/create_trip",methods=["GET","POST"])
 def create_trip():
     user_id=session.get("id")
+
     if not user_id:
         return redirect(url_for("login"))
+    
     if request.method=="POST":
+
         title=request.form["triptitle"]
         description=request.form["description"]
         thumbnail=request.files["thumbnail"]
+
         if(title=="" or description=="" or thumbnail.filename==""):
             return render_template("create_trip.html",error="Fill all details") 
-        t=int(time.time())
-        new_filename=str(user_id)+"_"+str(t)+"_"+thumbnail.filename
-        path=os.path.join(
-            "static",
-            "uploads",
-            "thumbnail",
-            new_filename
-        )
+        
+        try:
+            image = upload_image(thumbnail, "trip_thumbnails")
+
+        except Exception:
+            return render_template(
+                "create_trip.html",
+                error="Image upload failed. Please try again."
+            )
+        
         sql="""
-        insert into trip(user_id,title,description,thumbnail)
-        values(%s,%s,%s,%s)
+        insert into trip(user_id,title,description,thumbnail_url,thumbnail_public_id)
+        values(%s,%s,%s,%s,%s)
         """
-        thumbnail.save(path)
-        cursor.execute(sql,(user_id,title,description,path,))
-        db.commit()
+        cursor.execute(sql,(user_id,title,description,image["url"],image["public_id"]))
+
+        try:
+            db.commit()
+        except Exception:
+            db.rollback()
+            #delete uploaded image
+            return render_template(
+                "create_trip.html",
+                error="Something went wrong. Please try again."
+            )
+
         trip_id=cursor.lastrowid
         return redirect(url_for("add_stops",trip_id=trip_id))
     return render_template("create_trip.html")
@@ -232,7 +250,7 @@ def add_stops(trip_id):
         return redirect(url_for("trip_details",trip_id=trip_id))
     
     sql1="""
-    select sequence_number , stop_name,photo
+    select sequence_number , stop_name,photo_url
     from trip_stops
     where trip_id=%s
     order by sequence_number"""
@@ -248,6 +266,7 @@ def add_stops(trip_id):
             stop_name=request.form["stop_name"]
             description=request.form["description"]
             photo=request.files["photo"]
+
             if(stop_name=="" or photo.filename==""):
                 return render_template("add_stops.html",error="Fill all details",stops=stops) 
                        
@@ -263,20 +282,31 @@ def add_stops(trip_id):
                 sequence_number=0
             sequence_number+=1
 
-            new_filename=str(trip_id)+"_"+str(sequence_number)+"_"+photo.filename
-            path=os.path.join(
-                "static",
-                "uploads",
-                "stops",
-                new_filename
-            )
-            photo.save(path)
+            try:
+                image = upload_image(photo, "trip_stops")
+
+            except Exception:
+                return render_template(
+                    "add_stops.html",
+                    error="Image upload failed. Please try again."
+                )
+        
 
             sql3="""
-            insert into trip_stops(trip_id,sequence_number,stop_name,description,photo)
-            values(%s,%s,%s,%s,%s)"""
-            cursor.execute(sql3,(trip_id,sequence_number,stop_name,description,path))
-            db.commit()
+            insert into trip_stops(trip_id,sequence_number,stop_name,description,photo_url,photo_public_id)
+            values(%s,%s,%s,%s,%s,%s)"""
+            cursor.execute(sql3,(trip_id,sequence_number,stop_name,description,image["url"],image["public_id"]))
+
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+                #delete uploaded image
+                return render_template(
+                    "add_stops.html",
+                    error="Something went wrong. Please try again."
+                )
+
 
         elif action=="delete":
 
@@ -290,6 +320,8 @@ def add_stops(trip_id):
             if sequence_number is None:
                 return redirect(url_for("add_stops",trip_id=trip_id))
             sequence_number=sequence_number[0]
+
+            #delete image from claudinary
 
             sql3="""
             delete from trip_stops
@@ -331,7 +363,7 @@ def gallary(trip_id):
         return redirect(url_for("trip_details",trip_id=trip_id))
     
     sql1="""
-    select pics
+    select image_url
     from gallary
     where trip_id=%s
     order by sequence_number"""
@@ -359,20 +391,28 @@ def gallary(trip_id):
                 sequence_number=-1
             sequence_number+=1
 
-            new_filename=str(trip_id)+"_"+str(sequence_number)+"_"+picture.filename
-            new_filename=os.path.join(
-                "static",
-                "uploads",
-                "gallary",
-                new_filename
-            )
-            picture.save(new_filename)
+            try:
+                image = upload_image(picture, "gallary")
+
+            except Exception:
+                return render_template(
+                    "gallary.html",
+                    error="Image upload failed. Please try again."
+                )        
 
             sql2="""
-            insert into gallary(trip_id,sequence_number,pics)
-            values(%s,%s,%s)"""
-            cursor.execute(sql2,(trip_id,sequence_number,new_filename))
-            db.commit()
+            insert into gallary(trip_id,sequence_number,image_url,image_public_id)
+            values(%s,%s,%s,%s)"""
+            cursor.execute(sql2,(trip_id,sequence_number,image["url"],image["public_id"]))
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+                #delete uploaded image
+                return render_template(
+                    "gallary.html",
+                    error="Something went wrong. Please try again."
+                )
 
         elif action=="delete":
 
@@ -387,6 +427,8 @@ def gallary(trip_id):
             if sequence_number is None:
                 return redirect(url_for("gallary",trip_id=trip_id))
             
+            #delete image from claudinary
+
             sql3="""
             delete from gallary
             where trip_id=%s and sequence_number=%s"""
@@ -418,7 +460,7 @@ def trip_details(trip_id):
     
     
     sql1="""
-    select title,description,thumbnail,user_id,created_at
+    select title,description,thumbnail_url,user_id,created_at
     from trip
     where trip_id=%s"""
     cursor.execute(sql1,(trip_id,))
@@ -440,7 +482,7 @@ def trip_details(trip_id):
     username=username[0]
 
     sql2="""
-    select sequence_number , stop_name ,photo,description
+    select sequence_number , stop_name ,photo_url,description
     from trip_stops
     where trip_id=%s
     order by sequence_number"""
@@ -448,7 +490,7 @@ def trip_details(trip_id):
     stops=cursor.fetchall()
 
     sql3="""
-    select pics
+    select image_url
     from gallary
     where trip_id=%s
     order by sequence_number"""
@@ -549,7 +591,7 @@ def feed():
         trip.user_id,
         trip.title,
         trip.description,
-        trip.thumbnail,
+        trip.thumbnail_url,
         trip.created_at,
         users.username,
         COUNT(DISTINCT likes.user_id) AS likes,
@@ -600,4 +642,4 @@ def likes(trip_id):
 
 app.secret_key = os.getenv("SECRET_KEY")
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
