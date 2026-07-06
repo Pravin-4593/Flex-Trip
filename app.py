@@ -8,7 +8,7 @@ import os
 import cloudinary_config
 import time
 
-from utils import upload_image
+from utils import upload_image,delete_image
 
 app = Flask(__name__)
 
@@ -301,7 +301,7 @@ def add_stops(trip_id):
                 db.commit()
             except Exception:
                 db.rollback()
-                #delete uploaded image
+                delete_image(image["public_id"])
                 return render_template(
                     "add_stops.html",
                     error="Something went wrong. Please try again."
@@ -315,19 +315,38 @@ def add_stops(trip_id):
             from trip_stops
             where trip_id=%s"""
             cursor.execute(sql2,(trip_id,))
-            sequence_number=cursor.fetchone()
+            sequence_number=cursor.fetchone()[0]
 
             if sequence_number is None:
                 return redirect(url_for("add_stops",trip_id=trip_id))
             sequence_number=sequence_number[0]
 
-            #delete image from claudinary
+            sql4="""
+            select photo_public_id
+            from trip_stops
+            where trip_id=%s and sequence_number=%s """
+            cursor.execute(sql4,(trip_id,sequence_number,))
+            public_id=cursor.fetchone()[0]
 
             sql3="""
             delete from trip_stops
             where trip_id=%s and sequence_number=%s"""
             cursor.execute(sql3,(trip_id,sequence_number,))
-            db.commit()
+            
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+                return render_template(
+                    "add_stops.html",
+                    error="Unable to delete image. Please try again.",
+                    stops=stops
+                )
+            
+            try:
+                delete_image(public_id)
+            except Exception:
+                pass
         
         elif action=="done":
             return redirect(url_for("gallary",trip_id=trip_id))
@@ -408,7 +427,7 @@ def gallary(trip_id):
                 db.commit()
             except Exception:
                 db.rollback()
-                #delete uploaded image
+                delete_image(image["public_id"])
                 return render_template(
                     "gallary.html",
                     error="Something went wrong. Please try again."
@@ -427,13 +446,33 @@ def gallary(trip_id):
             if sequence_number is None:
                 return redirect(url_for("gallary",trip_id=trip_id))
             
-            #delete image from claudinary
+            sql6="""
+            select image_public_id
+            from gallary
+            where trip_id=%s and sequence_number=%s"""
+            cursor.execute(sql6,(trip_id,sequence_number,))
+            public_id=cursor.fetchone()[0]
 
             sql3="""
             delete from gallary
             where trip_id=%s and sequence_number=%s"""
             cursor.execute(sql3,(trip_id,sequence_number,))
-            db.commit()
+
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+                return render_template(
+                    "gallary.html",
+                    error="Unable to delete image. Please try again.",
+                    images=images
+                )
+            
+            try:
+                delete_image(public_id)
+            except Exception:
+                pass
+
 
 
         elif action=="done":
