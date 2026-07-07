@@ -132,12 +132,47 @@
     white-space:pre-line;
 }
 
+.edit-profile a{
+    text-decoration: none;
+    margin-top:1vmax;
+    background-color:#036564;
+    color:#E8DDCB;
+    font-size:1.2vmax;
+    border:none;
+    border-radius:0.7vmax;
+    padding:0.8vmax 1.5vmax;
+    cursor:pointer;
+}
+
+.edit-profile  a:hover{
+    background-color:#033649;
+}
+
+.profile-heading{
+    display: flex;
+    gap: 10vmin;
+}
+
+.profile-heading img{
+    border-radius: 5vmin;
+    padding: 2vmin;
+    height: 50vmin;
+    width: auto;
+}
+
 @media (max-width:768px){
 
     .profile-heading{
         width:95%;
         padding:1rem;
         border-width:3px;
+        flex-direction: column;
+    }
+
+    .profile-heading img{
+        width:100%;
+        max-width:350px;
+        height:auto;
     }
 
     .profile-heading h1{
@@ -206,5 +241,4 @@
         font-size:1.5rem;
         padding:1rem;
     }
-
 }

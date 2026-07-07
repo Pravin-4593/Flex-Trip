@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/edit_profile.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<div class="edit-profile">
+
+    <h1>Edit Profile</h1>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% if profile_url %}
+            <div class="profile-img">
+                <img src="{{ profile_url }}" alt="Profile Picture">
+            </div>
+        {% endif %}
+
+        <label>Profile Picture</label>
+        <input type="file"
+               name="profile_picture"
+               accept="image/*">
+
+        <br><br>
+
+        <label>Username</label>
+
+        <input
+            type="text"
+            name="username"
+            value="{{ username }}"
+            maxlength="50"
+            required>
+
+        <br><br>
+
+        <label>Bio</label>
+
+        <textarea
+            name="bio"
+            rows="6"
+            maxlength="500">{{ bio }}</textarea>
+
+        <br><br>
+
+        <button type="submit">
+            Save Changes
+        </button>
+
+        <a href="{{ url_for('profile') }}">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}
