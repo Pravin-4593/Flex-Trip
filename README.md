@@ -1,23 +1,37 @@
 # 🌍 Flex Trip
 
-A full-stack travel social media web application where users can share their travel experiences, create trips with multiple stops, upload gallery photos, interact with other travelers, and discover new travel destinations.
+A full-stack travel social media web application where users can share their travel experiences, create detailed trips with multiple stops, upload travel photos, interact with other travelers, and discover new adventures.
 
 ---
 
-## Live Demo
+## 🌐 Live Demo
 
-🔗 **[FlexTrip Live](https://flex-trip.onrender.com)**
+🔗 **[Flex Trip Live](https://flex-trip.onrender.com)**
+
+---
+
+## 🚀 Highlights
+
+- Full-stack Flask web application
+- Cloudinary image storage
+- MySQL relational database
+- Responsive UI
+- Authentication & profile management
+- Deployed on Render with Aiven Cloud Database
 
 ## 📸 Screenshots
 
 ### Feed
 ![Feed](screenshots/feed.jpeg)
 
-### Trip Details
-![Trip Details](screenshots/trip_details.jpeg)
-
 ### User Profile
 ![Profile](screenshots/profile.jpeg)
+
+### Edit Profile
+![Create Trip](screenshots/edit_profile.jpeg)
+
+### Trip Details
+![Trip Details](screenshots/trip_details.jpeg)
 
 ### Search Users
 ![Search](screenshots/search.jpeg)
@@ -25,48 +39,78 @@ A full-stack travel social media web application where users can share their tra
 ### Create Trip
 ![Create Trip](screenshots/create_trip.jpeg)
 
+### Add Stops
+![Create Trip](screenshots/add_stops.jpeg)
+
+### add gallery photos
+![Create Trip](screenshots/gallery.jpeg)
+
 ---
 
 ## ✨ Features
 
-- 🔐 User Authentication (Signup/Login)
+### Authentication
+- 🔐 User Signup & Login
+- 🚪 Secure Logout
+- 🔒 Password Hashing using Werkzeug
+- 👤 Account Deletion
+
+### User Profiles
 - 👤 Public User Profiles
-- 📝 Create and Publish Trips
-- 📍 Add Multiple Stops to a Trip
-- 🖼 Upload Trip Gallery Photos
+- 🖼 Profile Pictures
+- ✏ Edit Profile (Bio & Profile Picture)
+- 👥 View Other Travelers' Profiles
+
+### Trip Management
+- 📝 Create Trips
+- 📍 Add Multiple Stops
+- 🖼 Upload Trip Gallery
+- ✏ Continue Editing Draft Trips
+- 🗑 Delete Trips
+
+### Social Features
 - ❤️ Like Trips
 - 💬 Comment on Trips
 - 🔎 Search Users
 - 📰 Travel Feed
-- 📱 Clean Responsive UI
-- 🔒 Password Hashing
+
+### Media
+- ☁ Cloudinary Image Storage
+- 📷 Trip Thumbnails
+- 📍 Stop Photos
+- 🖼 Gallery Photos
+- 👤 Profile Pictures
+
+### Other
+- 📱 Responsive Design
 - 🗃 MySQL Database
+- ☁ Cloud Hosted Database
+- 🚀 Deployed on Render
 
 ---
 
 ## 🛠 Tech Stack
 
 ### Frontend
-
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
+- Jinja2
 
 ### Backend
-
-- Flask
 - Python
+- Flask
 
 ### Database
+- MySQL (Aiven Cloud)
 
-- MySQL
+### Cloud Storage
+- Cloudinary
 
-### Other
+### Deployment
+- Render
 
-- Jinja2
-- Werkzeug
-- Render (Deployment)
-- Aiven Cloud (Database)
+### Tools
 - Git
 - GitHub
 
@@ -74,17 +118,27 @@ A full-stack travel social media web application where users can share their tra
 
 ## 📂 Project Structure
 
-```
+```text
 Flex-Trip/
+│
+├── routes/
+│   ├── auth.py
+│   ├── profile.py
+│   ├── social.py
+│   ├── trip.py
+│   └── __init__.py
 │
 ├── static/
 │   ├── css/
-│   └── uploads/
+│   ├── images/
+│   └── ...
 │
 ├── templates/
 │
 ├── app.py
 ├── db.py
+├── utils.py
+├── cloudinary_config.py
 ├── flex_trip_database.sql
 ├── requirements.txt
 ├── README.md
@@ -140,21 +194,23 @@ pip install -r requirements.txt
 Create a `.env` file in the project root.
 
 ```env
-DB_HOST=localhost
-DB_USER=your_username
-DB_PASSWORD=your_password
-DB_NAME=your_database
+DB_HOST=your_database_host
+DB_USER=your_database_username
+DB_PASSWORD=your_database_password
+DB_NAME=your_database_name
 
 SECRET_KEY=your_secret_key
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
 ---
 
 ## 🗄 Database Setup
 
-Create a MySQL database.
-
-Import the provided SQL file.
+Create a MySQL database and import the schema.
 
 ```sql
 SOURCE flex_trip_database.sql;
@@ -168,7 +224,7 @@ SOURCE flex_trip_database.sql;
 python app.py
 ```
 
-Open
+Open:
 
 ```
 http://127.0.0.1:5000
@@ -176,15 +232,17 @@ http://127.0.0.1:5000
 
 ---
 
-## 📌 Future Improvements
+## 🚧 Future Improvements
 
-- Profile Pictures
-- Notifications
-- Follow Users
-- Save Trips
-- Interactive Maps
-- Trip Editing
-- Email Verification
+- 📧 Email Verification
+- 🔑 Forgot Password
+- 👥 Follow / Unfollow Users
+- 📰 Personalized Feed
+- 🔔 Notifications
+- 🗺 Interactive Maps
+- 📌 Save Trips
+- ❤️ Delete Comments
+- 📄 Pagination
 
 ---
 
@@ -192,9 +250,11 @@ http://127.0.0.1:5000
 
 **Pravin**
 
-GitHub:
+GitHub:  
 https://github.com/Pravin-4593
 
 ---
 
-## 📄 License later
+## 📄 License
+
+This project is currently intended for educational and portfolio purposes.
