@@ -166,7 +166,6 @@ def edit_profile():
                 profile_url=profile_url
             )
 
-        # ---------- No new profile picture ----------
         if picture.filename == "":
 
             sql = """
@@ -181,7 +180,6 @@ def edit_profile():
 
             return redirect(url_for("profile"))
 
-        # ---------- New profile picture ----------
         try:
             image = upload_image(picture, "profile_pictures")
 
@@ -244,3 +242,97 @@ def edit_profile():
         bio=bio,
         profile_url=profile_url
     )
+
+# Delete Account
+@app.route("/delete_account", methods=["POST"])
+def delete_account():
+
+    user_id = session.get("id")
+    if user_id is None:
+        return redirect(url_for("login"))
+
+    sql = """
+    SELECT profile_public_id
+    FROM users
+    WHERE id=%s
+    """
+    cursor.execute(sql, (user_id,))
+    profile = cursor.fetchone()
+
+    profile_public_id = None
+    if profile:
+        profile_public_id = profile[0]
+
+    sql = """
+    SELECT thumbnail_public_id
+    FROM trip
+    WHERE user_id=%s
+    """
+    cursor.execute(sql, (user_id,))
+    thumbnails = cursor.fetchall()
+
+    sql = """
+    SELECT photo_public_id
+    FROM trip_stops
+    JOIN trip
+        ON trip.trip_id = trip_stops.trip_id
+    WHERE trip.user_id=%s
+    """
+    cursor.execute(sql, (user_id,))
+    stop_photos = cursor.fetchall()
+
+
+    sql = """
+    SELECT image_public_id
+    FROM gallary
+    JOIN trip
+        ON trip.trip_id = gallary.trip_id
+    WHERE trip.user_id=%s
+    """
+    cursor.execute(sql, (user_id,))
+    gallery_images = cursor.fetchall()
+
+    sql = """
+    DELETE FROM users
+    WHERE id=%s
+    """
+    cursor.execute(sql, (user_id,))
+
+    try:
+        db.commit()
+
+    except Exception:
+        db.rollback()
+        return redirect(url_for("profile"))
+
+
+    if profile_public_id:
+        try:
+            delete_image(profile_public_id)
+        except Exception:
+            pass
+
+    for image in thumbnails:
+        if image[0]:
+            try:
+                delete_image(image[0])
+            except Exception:
+                pass
+
+    for image in stop_photos:
+        if image[0]:
+            try:
+                delete_image(image[0])
+            except Exception:
+                pass
+
+    for image in gallery_images:
+        if image[0]:
+            try:
+                delete_image(image[0])
+            except Exception:
+                pass
+
+    session.pop("id", None)
+
+    return redirect(url_for("login"))
