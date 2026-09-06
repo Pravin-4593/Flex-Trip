@@ -11,6 +11,7 @@
             </div>
         {% endif %}
         <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <p>Title:</p>
             <input type="text" name="triptitle" id="triptitle" placeholder="TRIP TITLE">
             <br>

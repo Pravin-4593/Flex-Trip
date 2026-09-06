@@ -20,6 +20,7 @@
     </div>
     <div class="new_stop">
         <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <button type="submit" name="action" value="delete">DELETE LAST STOP</button>
             <br>
             <h2>NEW STOP</h2>
