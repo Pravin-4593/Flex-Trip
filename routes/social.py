@@ -42,7 +42,7 @@ def search():
 
 
 #like
-@app.route("/like/<int:trip_id>",methods=["get","post"])
+@app.route("/like/<int:trip_id>", methods=["POST"])
 def likes(trip_id):
     user_id=session.get("id")
     sql="""
