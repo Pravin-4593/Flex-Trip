@@ -54,6 +54,9 @@ def search():
 def likes(trip_id):
     user_id=session.get("id")
 
+    if not user_id:
+        return redirect(url_for("login"))
+
     db = db_pool.get_connection()
     cursor = db.cursor()
 
