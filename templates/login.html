@@ -38,11 +38,8 @@
                     Login
                 </button>
             </form>
-            <form method="post">
-                <br>
-                <div class="msg">New to Flex Trip?</div>
-                <button type="submit" name="action" value="signup"> Signup</button>
-            </form>
+            <div>Don't have account?</div>
+            <a href="{{ url_for('signup') }}" name="signup">Signup</a>
         </div>
     </div>
 </body>

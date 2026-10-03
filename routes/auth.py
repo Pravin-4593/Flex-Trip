@@ -12,7 +12,7 @@ from werkzeug.security import (
 )
 
 from app import app
-from db import db, cursor
+from db import db_pool
 
 
 #Signup page
@@ -21,52 +21,61 @@ def signup():
 
     if request.method == "POST":
 
-        username = request.form["username"]
-        email = request.form["email"]
-        password = request.form["password"]
+        db = db_pool.get_connection()
+        cursor = db.cursor()
+
+        try:
+
+            username = request.form["username"]
+            email = request.form["email"]
+            password = request.form["password"]
+            
+            username = username.strip().lower()
+            email = email.strip().lower()
+
+            if username=="" or email=="" or password=="":
+                return render_template("signup.html",error="Please fill all fields")
+
+            sql1 = """
+            select email from users
+            where users.email=%s"""
+            cursor.execute(sql1,(email,))
+            echeck = cursor.fetchone()
+
+            if echeck:
+                return render_template("signup.html",error="email already exists !")
+            
+
+            sql2 = """
+            select username from users
+            where users.username=%s"""
+            cursor.execute(sql2,(username,))
+            ucheck = cursor.fetchone()
+
+            if ucheck:
+                return render_template("signup.html",error="username already exists !") 
+            
+            password = generate_password_hash(password)
+            sql = """
+            insert into users(username,email,password)
+            values(%s,%s,%s)
+            """
+            values = (
+                username,
+                email,
+                password
+            )
+
+            cursor.execute(sql, values)
+
+            db.commit()
         
-        username = username.strip().lower()
-        email = email.strip().lower()
-
-        if username=="" or email=="" or password=="":
-            return render_template("signup.html",error="Please fill all fields")
-
-        sql1 = """
-        select email from users
-        where users.email=%s"""
-        cursor.execute(sql1,(email,))
-        echeck = cursor.fetchone()
-
-        if echeck:
-            return render_template("signup.html",error="email already exists !")
-        
-
-        sql2 = """
-        select username from users
-        where users.username=%s"""
-        cursor.execute(sql2,(username,))
-        ucheck = cursor.fetchone()
-
-        if ucheck:
-            return render_template("signup.html",error="username already exists !") 
-        
-        password = generate_password_hash(password)
-        sql = """
-        insert into users(username,email,password)
-        values(%s,%s,%s)
-        """
-        values = (
-            username,
-            email,
-            password
-        )
-
-        cursor.execute(sql, values)
-
-        db.commit()
+        finally:
+            cursor.close()
+            db.close()
 
         return redirect(url_for("login"))
-
+    
     return render_template("signup.html")
 
 
@@ -74,8 +83,12 @@ def signup():
 @app.route("/login",methods=["GET","POST"])
 def login():
     if request.method=="POST":
-        action=request.form["action"]
-        if action=="login":
+        
+        db = db_pool.get_connection()
+        cursor = db.cursor()
+
+        try:
+            
             username = request.form["username"]
             password = request.form["password"]
 
@@ -97,8 +110,11 @@ def login():
                     return render_template("login.html",error="incorrect username or password")
             else:
                 return render_template("login.html",error="username do not exists")
-        elif action=="signup":
-            return redirect(url_for("signup"))
+        
+        finally:
+            cursor.close()
+            db.close()
+        
 
     return render_template("login.html")
 

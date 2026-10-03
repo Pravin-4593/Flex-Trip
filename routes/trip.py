@@ -7,7 +7,7 @@ from flask import (
 )
 
 from app import app
-from db import db, cursor
+from db import db_pool
 from utils import upload_image, delete_image
 
 
