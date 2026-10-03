@@ -20,23 +20,31 @@ def search():
     
     username=request.args.get("username")
     search=False
-    if username:
-        search=True
-        username.lower()
-        username="%"+username+"%"
-        sql="""
-        select id, username, count(trip.trip_id), users.created_at
-        from users
-        left join trip on trip.user_id=users.id and trip.is_complete=true
-        where username like %s
-        group by users.id
-        """
-        cursor.execute(sql,(username,))
-        users=cursor.fetchall()
 
-    else:
+    db = db_pool.get_connection()
+    cursor = db.cursor()
 
-        users=[]
+    try:
+        if username:
+            search=True
+            username=username.lower()
+            username="%"+username+"%"
+            sql="""
+            select id, username, count(trip.trip_id), users.created_at
+            from users
+            left join trip on trip.user_id=users.id and trip.is_complete=true
+            where username like %s
+            group by users.id
+            """
+            cursor.execute(sql,(username,))
+            users=cursor.fetchall()
+
+        else:
+            users=[]
+
+    finally:
+        cursor.close()
+        db.close()
 
     return render_template("search.html",users=users,search=search)
 
@@ -45,23 +53,43 @@ def search():
 @app.route("/like/<int:trip_id>", methods=["POST"])
 def likes(trip_id):
     user_id=session.get("id")
-    sql="""
-    select *
-    from likes
-    where user_id=%s and trip_id=%s"""
-    cursor.execute(sql,(user_id,trip_id,))
-    flag=cursor.fetchone()
-    if flag is None:
-        sql2="""
-        insert into likes (user_id,trip_id)
-        values(%s,%s)"""
-        cursor.execute(sql2,(user_id,trip_id,))
-        db.commit()
-    else:
-        sql2="""
-        delete from likes
+
+    db = db_pool.get_connection()
+    cursor = db.cursor()
+
+    try:
+        sql="""
+        select *
+        from likes
         where user_id=%s and trip_id=%s"""
-        cursor.execute(sql2,(user_id,trip_id,))
-        db.commit()
+        cursor.execute(sql,(user_id,trip_id,))
+        flag=cursor.fetchone()
+        if flag is None:
+            sql2="""
+            insert into likes (user_id,trip_id)
+            values(%s,%s)"""
+            cursor.execute(sql2,(user_id,trip_id,))
+
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+                return redirect(url_for("trip_details", trip_id=trip_id))
+
+        else:
+            sql2="""
+            delete from likes
+            where user_id=%s and trip_id=%s"""
+            cursor.execute(sql2,(user_id,trip_id,))
+
+            try:
+                db.commit()
+            except Exception:
+                db.rollback()
+                return redirect(url_for("trip_details", trip_id=trip_id))
+    
+    finally:
+        cursor.close()
+        db.close()
 
     return redirect(url_for("trip_details",trip_id=trip_id))
