@@ -431,9 +431,12 @@ def trip_details(trip_id):
                 return "Enter valid comment!"
             if comment.__len__()>1000:
                 return "comment too big!"
+            
             sql6="""
             insert into comments(user_id,trip_id,comment)
             values(%s,%s,%s)"""
+            cursor.execute(sql6,(current_user_id,trip_id,comment,))
+
             try:
                 db.commit()
             except Exception:
