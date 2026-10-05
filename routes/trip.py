@@ -361,13 +361,18 @@ def trip_details(trip_id):
 
     try:
         sql1="""
-        select title,description,thumbnail_url,user_id,created_at
+        select title,description,thumbnail_url,user_id,created_at,is_complete
         from trip
         where trip_id=%s"""
         cursor.execute(sql1,(trip_id,))
         details=cursor.fetchone()
+
+        if not details[5] and current_user_id != user_id:
+            return redirect(url_for("feed"))
+        
         if details is None:
             return redirect(url_for("profile"))
+        
         trip_title=details[0]
         description=details[1]
         thumbnail=details[2]
